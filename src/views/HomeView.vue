@@ -9,7 +9,7 @@
     <div v-else class="flex flex-col" ref="characterList">
       <div v-for="character in characters" :key="character.id"
         class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2"
-        @click="router.push(`/character/${character.id}`)">
+        @click="router.push(`/characters/${character.id}`)">
         <img :src="character.image" :alt="character.name" class="rounded-lg" />
         <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
       </div>

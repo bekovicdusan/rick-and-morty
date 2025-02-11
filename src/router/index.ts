@@ -5,7 +5,7 @@ import CharacterView from "../views/CharacterView.vue";
 
 const routes = [
   { path: "/", component: HomeView },
-  { path: "/character/:id", component: CharacterView },
+  { path: "/characters/:id", component: CharacterView },
 ];
 
 const router = createRouter({
