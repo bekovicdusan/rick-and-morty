@@ -4,9 +4,9 @@
       Rick and Morty Characters ({{ characterCount }})
     </h1>
 
-    <p v-if="isLoading">Loading...</p>
+    <p v-if="!characters.length">Loading...</p>
 
-    <div v-else class="flex flex-col">
+    <div v-else class="flex flex-col" ref="characterList">
       <div v-for="character in characters" :key="character.id"
         class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2"
         @click="router.push(`/character/${character.id}`)">
@@ -18,16 +18,38 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useCharacterStore } from '../store/character.store';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
-const characterStore = useCharacterStore();
-const { characters, isLoading, characterCount } = storeToRefs(characterStore);
 const router = useRouter();
 
+const characterStore = useCharacterStore();
+const { characters, characterCount } = storeToRefs(characterStore);
+
+const characterList = ref<HTMLElement | null>(null);
+const page = ref<number>(1);
+
 onMounted(async () => {
-  await characterStore.fetchCharacters();
-})
+  window.addEventListener("scroll", handleScroll);
+  await characterStore.fetchCharacters(page.value);
+});
+
+onUnmounted(() => {
+  characters.value = [];
+  window.removeEventListener("scroll", handleScroll);
+});
+
+const handleScroll = async () => {
+  const element = characterList.value;
+  if (element && element.getBoundingClientRect().bottom < window.innerHeight) {
+    await loadMoreCharacters();
+  }
+}
+
+const loadMoreCharacters = async () => {
+  page.value += 1;
+  await characterStore.fetchCharacters(page.value);
+};
 </script>

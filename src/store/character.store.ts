@@ -17,17 +17,18 @@ export const useCharacterStore = defineStore("character", () => {
 
     // check if data cached
     if (cachedData.value[cacheKey]) {
-      characters.value = cachedData.value[cacheKey];
+      characters.value.push(...cachedData.value[cacheKey]);
       return;
     }
 
     isLoading.value = true;
 
     try {
-      characters.value = await getCharacters(page);
+      const currentPageCharacters = await getCharacters(page);
+      characters.value.push(...currentPageCharacters);
 
       // cache fetched data
-      cachedData.value[cacheKey] = characters.value;
+      cachedData.value[cacheKey] = currentPageCharacters;
     } catch (err) {
       error.value = "Failed to fetch characters";
       console.error(err);
