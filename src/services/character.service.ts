@@ -7,7 +7,9 @@ const apiClient = axios.create({
 
 export const getCharacters = async (page: number) => {
   try {
-    const { data } = await apiClient.get(`/character?page=${page}`);
+    const { data } = await apiClient.get("/character", {
+      params: { page },
+    });
     return data.results;
   } catch (error) {
     console.error("Error fetching characters: ", error);
