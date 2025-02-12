@@ -1,7 +1,7 @@
 <template>
   <div class="w-[338px] flex items-center relative">
-    <input v-model="searchQuery" class="w-full px-2 py-1" type="text" placeholder="Search by character name"
-      @input="emitSearch" />
+    <input name="search-characters-input" v-model="searchQuery" class="w-full px-2 py-1" type="text"
+      placeholder="Search by character name" @input="emitSearch" />
     <font-awesome-icon icon="fa-solid fa-search" class="absolute right-4" />
   </div>
 </template>
