@@ -9,8 +9,6 @@ export const useCharacterStore = defineStore("character", () => {
   const error = ref<string | null>(null);
   const cachedData = ref<Record<string, any>>({});
 
-  const characterCount = computed(() => characters.value.length);
-
   const fetchCharacters = async (page: number = 1) => {
     error.value = null;
     const cacheKey = `characters-page-${page}`;
@@ -64,7 +62,6 @@ export const useCharacterStore = defineStore("character", () => {
     character,
     characters,
     isLoading,
-    characterCount,
     error,
 
     fetchCharacters,
