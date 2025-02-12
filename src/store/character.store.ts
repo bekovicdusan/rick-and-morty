@@ -1,21 +1,23 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { getCharacters, getCharacterById } from "../services/character.service";
+import type { Character } from "../types/character.type";
 
 export const useCharacterStore = defineStore("character", () => {
-  const character = ref<any | null>(null);
-  const characters = ref<any[]>([]);
+  const character = ref<Character | null>(null);
+  const characters = ref<Character[]>([]);
   const isLoading = ref(false);
   const error = ref<string | null>(null);
-  const cachedData = ref<Record<string, any>>({});
+  const cachedCharacterLists = ref<Record<string, Character[]>>({});
+  const cachedCharacters = ref<Record<string, Character>>({});
 
   const fetchCharacters = async (page: number = 1) => {
     error.value = null;
     const cacheKey = `characters-page-${page}`;
 
     // check if data cached
-    if (cachedData.value[cacheKey]) {
-      characters.value.push(...cachedData.value[cacheKey]);
+    if (cachedCharacterLists.value[cacheKey]) {
+      characters.value.push(...cachedCharacterLists.value[cacheKey]);
       return;
     }
 
@@ -26,7 +28,7 @@ export const useCharacterStore = defineStore("character", () => {
       characters.value.push(...currentPageCharacters);
 
       // cache fetched data
-      cachedData.value[cacheKey] = currentPageCharacters;
+      cachedCharacterLists.value[cacheKey] = currentPageCharacters;
     } catch (err) {
       error.value = "Failed to fetch characters";
       console.error(err);
@@ -39,8 +41,8 @@ export const useCharacterStore = defineStore("character", () => {
     error.value = null;
     const cacheKey = `character-${id}`;
 
-    if (cachedData.value[cacheKey]) {
-      character.value = cachedData.value[cacheKey];
+    if (cachedCharacters.value[cacheKey]) {
+      character.value = cachedCharacters.value[cacheKey];
       return;
     }
 
@@ -49,7 +51,11 @@ export const useCharacterStore = defineStore("character", () => {
     try {
       character.value = await getCharacterById(id);
 
-      cachedData.value[cacheKey] = character.value;
+      if (!character.value) {
+        throw new Error("Character not found");
+      }
+
+      cachedCharacters.value[cacheKey] = character.value;
     } catch (err) {
       error.value = "Failed to fetch character details";
       console.error(err);
