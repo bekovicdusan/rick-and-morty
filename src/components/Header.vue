@@ -9,7 +9,7 @@
         </router-link>
       </h1>
       <nav>
-        <router-link to="/" class="mr-6 text-white hover:text-gray-400">
+        <router-link to="/characters" class="mr-6 text-white hover:text-gray-400">
           Characters
         </router-link>
       </nav>
