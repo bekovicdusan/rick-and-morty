@@ -31,5 +31,3 @@ onMounted(async () => {
   store.fetchCharacterById(route.params.id as string);
 });
 </script>
-
-<style scoped></style>

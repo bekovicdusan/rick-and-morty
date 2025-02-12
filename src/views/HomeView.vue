@@ -4,9 +4,7 @@
       Rick and Morty Characters ({{ filteredCharacters.length }})
     </h1>
 
-    <p v-if="!characters.length && !hasReachedTheEnd">Loading...</p>
-
-    <div v-else class="flex flex-col" ref="characterList">
+    <div class="flex flex-col" ref="characterList">
       <SearchBox class="p-2" v-model:search="searchQuery" />
       <div v-for="character in filteredCharacters" :key="character.id"
         class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
@@ -14,9 +12,12 @@
         <img :src="character.image" :alt="character.name" class="rounded-lg" />
         <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
       </div>
-      <p v-if="hasReachedTheEnd" class="flex items-center justify-center w-full mt-2 text-lg font-medium">That's all
-        folks!</p>
+      <p v-if="hasReachedTheEnd" class="flex items-center justify-center w-full mt-2 text-lg font-medium">
+        That's all folks!
+      </p>
     </div>
+
+    <Loader v-if="isLoading" />
   </div>
 </template>
 
@@ -27,11 +28,12 @@ import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 import SearchBox from "../components/SearchBox.vue";
+import Loader from "../components/UI/Loader.vue";
 
 const router = useRouter();
 
 const characterStore = useCharacterStore();
-const { characters } = storeToRefs(characterStore);
+const { characters, isLoading } = storeToRefs(characterStore);
 
 const characterList = ref<HTMLElement | null>(null);
 const page = ref<number>(1);
