@@ -6,5 +6,20 @@
 </template>
 
 <script setup lang="ts">
-import Header from "./components/Header.vue"
+import { watch } from "vue";
+import { useAuthStore } from "./store/auth.store";
+
+import Header from "./components/Header.vue";
+
+const authStore = useAuthStore();
+
+// Auto logout
+watch(
+  () => authStore.isTokenValid,
+  () => {
+    if (!authStore.isTokenValid) {
+      authStore.signOut();
+    }
+  }
+);
 </script>

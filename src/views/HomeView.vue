@@ -1,5 +1,5 @@
 <template>
-  <span class="block">
-    home
+  <span class="block w-full flex justify-center mt-20">
+    Home View
   </span>
 </template>

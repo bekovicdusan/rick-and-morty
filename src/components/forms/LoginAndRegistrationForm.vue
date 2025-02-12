@@ -29,6 +29,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useAuthStore } from "../../store/auth.store";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -38,8 +41,10 @@ const authStore = useAuthStore();
 const handleSubmit = async () => {
   if (isLogin.value) {
     await authStore.signIn(email.value, password.value);
+    router.push("/characters");
   } else {
     await authStore.signUp(email.value, password.value);
+    router.push("/characters");
   }
 };
 
