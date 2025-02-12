@@ -4,7 +4,7 @@ import { useAuthStore } from "../store/auth.store";
 import CharacterListView from "../views/CharacterListView.vue";
 import CharacterView from "../views/CharacterView.vue";
 import HomeView from "../views/HomeView.vue";
-import LoginForm from "../components/forms/LoginForm.vue";
+import LoginAndRegisterView from "../views/LoginAndRegisterView.vue";
 
 const routes = [
   {
@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: LoginForm,
+    component: LoginAndRegisterView,
   },
   {
     path: "/characters",
