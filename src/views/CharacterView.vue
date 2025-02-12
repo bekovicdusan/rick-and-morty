@@ -1,6 +1,7 @@
 <template>
-  <div v-if="isLoading" class="p-6">Loading...</div>
-  <div v-else-if="error" class="p-6 text-red-500">{{ error }}</div>
+  <div v-if="isLoading" class="flex items-center justify-center w-full p-6">
+    <Loader />
+  </div>
 
   <div v-else-if="character" class="p-6">
     <div class="bg-gray-800 p-6 rounded-lg flex items-center">
@@ -21,11 +22,13 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useCharacterStore } from "../store/character.store";
 
+import Loader from "../components/UI/Loader.vue";
+
 const route = useRoute();
 
 const store = useCharacterStore();
 
-const { character, isLoading, error } = storeToRefs(store);
+const { character, isLoading } = storeToRefs(store);
 
 onMounted(async () => {
   store.fetchCharacterById(route.params.id as string);
