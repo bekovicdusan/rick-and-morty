@@ -1,5 +1,5 @@
 <template>
-  <ul class="flex flex-wrap gap-2">
+  <ul class="flex justify-center sm:justify-start flex-wrap gap-2">
     <li v-for="item in items" :key="typeof item === 'string' ? item : item.id">
       <Badge :text="calculateText(item)">
         <template #badgeContent>

@@ -11,7 +11,7 @@
     <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
   </div>
 
-  <div v-else class="bg-gray-800 p-6 rounded-lg flex items-center">
+  <div v-else class="flex flex-col sm:flex-row bg-gray-800 p-6 rounded-lg flex items-center">
     <SkeletonImage :src="character.image" :alt="character.name" width="192px" height="192px" />
     <div class="ml-6">
       <h1 class="text-3xl font-bold mb-2">{{ character.name }}</h1>
