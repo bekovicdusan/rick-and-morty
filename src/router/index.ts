@@ -5,6 +5,8 @@ import CharacterListView from "../views/CharacterListView.vue";
 import CharacterView from "../views/CharacterView.vue";
 import HomeView from "../views/HomeView.vue";
 import LoginAndRegisterView from "../views/LoginAndRegisterView.vue";
+import LocationView from "../views/LocationView.vue";
+import EpisodeView from "../views/EpisodeView.vue";
 
 const routes = [
   {
@@ -24,6 +26,18 @@ const routes = [
   {
     path: "/characters/:id",
     component: CharacterView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/location/:id",
+    name: "SingleLocation",
+    component: LocationView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/episode/:id",
+    name: "SingleEpisode",
+    component: EpisodeView,
     meta: { requiresAuth: true },
   },
 ];
