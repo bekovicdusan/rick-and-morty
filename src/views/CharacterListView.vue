@@ -6,12 +6,9 @@
 
     <div class="flex flex-col" ref="characterList">
       <SearchBox class="p-2" v-model:search="searchQuery" />
-      <div v-for="character in filteredCharacters" :key="character.id"
-        class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
-        @click="router.push(`/characters/${character.id}`)">
-        <img :src="character.image" :alt="character.name" class="rounded-lg" />
-        <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
-      </div>
+
+      <CharacterCard v-for="character in filteredCharacters" :key="character.id" :character="character" is-mini />
+
       <p v-if="hasReachedTheEnd" class="flex items-center justify-center w-full mt-2 text-lg font-medium">
         That's all folks!
       </p>
@@ -24,14 +21,12 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, computed } from "vue";
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
 import { useCharacterStore } from '../store/character.store';
 import type { Character } from "../types/character.type";
 
 import SearchBox from "../components/SearchBox.vue";
 import Loader from "../components/UI/Loader.vue";
-
-const router = useRouter();
+import CharacterCard from "../components/UI/CharacterCard.vue";
 
 const characterStore = useCharacterStore();
 const { characters, isLoading } = storeToRefs(characterStore);
