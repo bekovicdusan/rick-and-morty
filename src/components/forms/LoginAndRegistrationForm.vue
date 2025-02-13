@@ -6,21 +6,25 @@
           required />
         <input v-model="password" class="rounded border border-gray-500 mt-2 p-2" name="password" type="password"
           placeholder="Password" required />
+        <input v-if="!isLoginMode" v-model="confirmPassword" class="rounded border border-gray-500 mt-2 p-2"
+          name="confirm-password" type="password" placeholder="Confirm password" required />
       </div>
       <button
         class="mt-2 p-2 rounded-lg border border-transparent text-text-gray-200 hover:transition hover:duration-300 hover:white hover:bg-gray-700 cursor-pointer"
         type="submit">
-        {{ isLogin ? "Login" : "Register" }}
+        {{ isLoginMode ? "Login" : "Register" }}
       </button>
     </form>
 
+    <p v-if="errorMessage" class="text-red-500 text-sm mb-2">{{ errorMessage }}</p>
+
     <p class="mt-3 text-sm flex">
       <span class="inline-block">
-        {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+        {{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}
       </span>
       <span class="cursor-pointer inline-block hover:transition hover:duration-150 hover:text-gray-300 ml-1"
         @click="toggleMode">
-        {{ isLogin ? "Register here" : "Login here" }}
+        {{ isLoginMode ? "Register here" : "Login here" }}
       </span>
     </p>
   </div>
@@ -33,22 +37,46 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const email = ref("");
-const password = ref("");
-const isLogin = ref(true); // Toggle between login and register mode
 const authStore = useAuthStore();
 
+const email = ref<string>("");
+const password = ref<string>("");
+const confirmPassword = ref<string>("");
+const errorMessage = ref<string>("");
+const isLoginMode = ref<boolean>(true);
+
 const handleSubmit = async () => {
-  if (isLogin.value) {
-    await authStore.signIn(email.value, password.value);
-    router.push("/characters");
+  errorMessage.value = "";
+
+  if (isLoginMode.value) {
+    try {
+      await authStore.signIn(email.value, password.value);
+      router.push("/characters");
+    } catch (error) {
+      errorMessage.value = "Login failed. Please try again.";
+      console.error(error);
+    }
   } else {
-    await authStore.signUp(email.value, password.value);
-    router.push("/characters");
+    if (password.value !== confirmPassword.value) {
+      errorMessage.value = "Passwords do not match!";
+      return;
+    }
+
+    try {
+      await authStore.signUp(email.value, password.value);
+      router.push("/characters");
+    } catch (error) {
+      errorMessage.value = "Registration failed. Please try again.";
+      console.error(error);
+    }
   }
 };
 
 const toggleMode = () => {
-  isLogin.value = !isLogin.value;
+  email.value = "";
+  password.value = "";
+  confirmPassword.value = "";
+  isLoginMode.value = !isLoginMode.value;
+  errorMessage.value = "";
 };
 </script>

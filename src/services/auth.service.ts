@@ -19,7 +19,7 @@ export const login = async (
     return userCredential.user;
   } catch (error) {
     console.error("Login failed:", error);
-    return null;
+    throw error;
   }
 };
 
@@ -36,7 +36,7 @@ export const register = async (
     return userCredential.user;
   } catch (error) {
     console.error("Registration failed:", error);
-    return null;
+    throw error;
   }
 };
 
