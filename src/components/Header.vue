@@ -4,7 +4,7 @@
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-bold">
         <router-link to="/" class="text-white flex">
-          <img decoding="async" class="mr-2 max-w-[90px]"
+          <img decoding="async" class="mr-2 max-w-[90px]" width="90" heigth="59"
             src="https://shindiristudio.com/wp-content/uploads/2022/02/Development-Ninja.svg"
             alt="https://shindiristudio.com/wp-content/uploads/2022/02/Development-Ninja.svg">
         </router-link>

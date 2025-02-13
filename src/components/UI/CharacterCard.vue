@@ -1,18 +1,18 @@
 <template>
   <div v-if="size === 'xs'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[122px]">
-    <img :src="character.image" :alt="character.name" class="rounded-lg"
+    <SkeletonImage :src="character.image" :alt="character.name" width="90px" height="90px"
       @click="router.push(`/characters/${character.id}`)" />
     <h4 class="mt-2 text-xs">{{ character.name }}</h4>
   </div>
 
   <div v-else-if="size === 'sm'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
     @click="router.push(`/characters/${character.id}`)">
-    <img :src="character.image" :alt="character.name" class="rounded-lg" />
+    <SkeletonImage :src="character.image" :alt="character.name" width="290px" height="290px" />
     <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
   </div>
 
   <div v-else class="bg-gray-800 p-6 rounded-lg flex items-center">
-    <img :src="character.image" :alt="character.name" class="rounded-lg w-48 h-48" />
+    <SkeletonImage :src="character.image" :alt="character.name" width="192px" height="192px" />
     <div class="ml-6">
       <h1 class="text-3xl font-bold mb-2">{{ character.name }}</h1>
       <p class="text-lg"><strong>Status:</strong> {{ character.status }}</p>
@@ -38,6 +38,8 @@ import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Character } from '../../types';
 import { extractId } from '../../helper';
+
+import SkeletonImage from './SkeletonImage.vue';
 
 defineProps({
   character: {
