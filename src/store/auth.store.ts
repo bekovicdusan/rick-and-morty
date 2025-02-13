@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import { login, logout, register } from "../services/auth.service";
+import { defineStore } from "pinia";
 import type { User } from "firebase/auth";
+import { login, logout, register } from "../services/auth.service";
 
 const TOKEN_KEY = "authToken";
 const EXPIRATION_KEY = "authTokenExpiration";

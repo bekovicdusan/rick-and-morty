@@ -22,14 +22,14 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '../store/auth.store';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../store/auth.store';
 
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-const handleLogout = async () => {
+const handleLogout = async (): Promise<void> => {
   await authStore.signOut();
   router.push("/login");
 }

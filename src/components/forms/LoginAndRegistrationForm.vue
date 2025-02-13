@@ -32,8 +32,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useAuthStore } from "../../store/auth.store";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "../../store/auth.store";
 
 const router = useRouter();
 
@@ -45,7 +45,7 @@ const confirmPassword = ref<string>("");
 const errorMessage = ref<string>("");
 const isLoginMode = ref<boolean>(true);
 
-const handleSubmit = async () => {
+const handleSubmit = async (): Promise<void> => {
   errorMessage.value = "";
 
   if (isLoginMode.value) {
@@ -72,7 +72,7 @@ const handleSubmit = async () => {
   }
 };
 
-const toggleMode = () => {
+const toggleMode = (): void => {
   email.value = "";
   password.value = "";
   confirmPassword.value = "";

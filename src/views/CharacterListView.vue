@@ -23,9 +23,10 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, computed } from "vue";
-import { useCharacterStore } from '../store/character.store';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useCharacterStore } from '../store/character.store';
+import type { Character } from "../types/character.type";
 
 import SearchBox from "../components/SearchBox.vue";
 import Loader from "../components/UI/Loader.vue";
@@ -40,7 +41,7 @@ const page = ref<number>(1);
 const searchQuery = ref<string>("");
 const hasReachedTheEnd = ref<boolean>(false);
 
-const filteredCharacters = computed(() => {
+const filteredCharacters = computed((): Character[] => {
   return characters.value.filter((character) => {
     return character.name.toLowerCase().includes(searchQuery.value.toLowerCase());
   });
@@ -56,14 +57,14 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
 
-const handleScroll = async () => {
+const handleScroll = async (): Promise<void> => {
   const element = characterList.value;
   if (element && element.getBoundingClientRect().bottom < window.innerHeight) {
     await loadMoreCharacters();
   }
 }
 
-const loadMoreCharacters = async () => {
+const loadMoreCharacters = async (): Promise<void> => {
   page.value += 1;
   // there are 42 pages in total
   if (page.value < 43) {
