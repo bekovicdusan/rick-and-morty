@@ -1,10 +1,5 @@
-import axios from "axios";
-import type { Character } from "../types/character.type";
-
-const apiClient = axios.create({
-  baseURL: "https://rickandmortyapi.com/api",
-  timeout: 5000,
-});
+import apiClient from "./apiClient";
+import type { Character } from "../types";
 
 export const getCharacters = async (page: number): Promise<Character[]> => {
   try {
