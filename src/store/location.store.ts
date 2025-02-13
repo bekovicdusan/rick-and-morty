@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import {
-  getLocationById,
-  getCharactersByIds,
-} from "../services/location.service";
+import { getCharactersByIds } from "../services/character.service";
+import { getLocationById } from "../services/location.service";
 import type { Location, Character } from "../types";
 
 export const useLocationStore = defineStore("location", () => {
@@ -27,15 +25,13 @@ export const useLocationStore = defineStore("location", () => {
     isLoading.value = true;
 
     try {
-      const location = await getLocationById(id);
-      locationData.value = location;
-      cachedLocations.value[locationCacheKey] = location;
+      locationData.value = await getLocationById(id);
+      cachedLocations.value[locationCacheKey] = locationData.value;
 
-      if (location.residents.length > 0) {
-        const characterIds = location.residents
+      if (locationData.value.residents.length) {
+        const characterIds = locationData.value.residents
           .map((url) => url.split("/").pop())
-          .join(",")
-          .split(","); // :)
+          .join(",");
         residentsCacheKey = `location-residents-${characterIds}`;
 
         if (cachedCharacters.value[residentsCacheKey]) {
@@ -43,9 +39,8 @@ export const useLocationStore = defineStore("location", () => {
           return;
         }
 
-        const characters = await getCharactersByIds(characterIds);
-        residents.value = characters;
-        cachedCharacters.value[residentsCacheKey] = characters;
+        residents.value = await getCharactersByIds(characterIds);
+        cachedCharacters.value[residentsCacheKey] = residents.value;
       }
     } catch (err) {
       error.value = "Failed to fetch location details";

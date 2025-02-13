@@ -10,9 +10,16 @@
       <p class="text-lg"><strong>Dimension:</strong> {{ locationData.dimension }}</p>
     </div>
 
-    <h2 class="text-2xl font-bold mt-6 mb-4">Residents</h2>
-    <div class="flex flex-wrap gap-2">
-      <CharacterCard v-for="character in residents" :key="character.id" :character="character" size="xs" />
+    <div class="mt-6">
+      <h2 class="flex items-center text-2xl font-semibold mb-2">
+        Residents
+        <Facet>
+          {{ residents.length }}
+        </Facet>
+      </h2>
+      <div class="flex flex-wrap gap-2">
+        <CharacterCard v-for="character in residents" :key="character.id" :character="character" size="xs" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +31,7 @@ import { useRoute } from "vue-router";
 import { useLocationStore } from "../store/location.store";
 
 import Loader from "../components/UI/Loader.vue";
+import Facet from "../components/UI/Facet.vue";
 import CharacterCard from "../components/UI/CharacterCard.vue";
 
 const route = useRoute();

@@ -1,7 +1,10 @@
 <template>
   <div class="p-6 flex flex-col items-center">
-    <h1 class="text-2xl font-bold mb-4">
-      Rick and Morty Characters ({{ filteredCharacters.length }})
+    <h1 class="flex items-center text-2xl font-bold mb-4">
+      Rick and Morty characters
+      <Facet>
+        {{ filteredCharacters.length }}
+      </Facet>
     </h1>
 
     <div class="flex flex-col" ref="characterList">
@@ -26,6 +29,7 @@ import type { Character } from "../types";
 
 import SearchBox from "../components/SearchBox.vue";
 import Loader from "../components/UI/Loader.vue";
+import Facet from "../components/UI/Facet.vue";
 import CharacterCard from "../components/UI/CharacterCard.vue";
 
 const characterStore = useCharacterStore();

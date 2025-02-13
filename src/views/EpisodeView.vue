@@ -11,11 +11,11 @@
     </div>
 
     <div class="mt-6">
-      <h2 class="text-2xl font-semibold mb-2">
+      <h2 class="flex items-center text-2xl font-semibold mb-2">
         Characters
-        <span class="text-md">
-          ({{ characters.length }})
-        </span>
+        <Facet>
+          {{ characters.length }}
+        </Facet>
       </h2>
       <div class="flex flex-wrap gap-2">
         <CharacterCard v-for="character in characters" :key="character.id" :character="character" size="xs" />
@@ -29,11 +29,14 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useEpisodeStore } from "../store/episode.store";
+
 import Loader from "../components/UI/Loader.vue";
 import CharacterCard from "../components/UI/CharacterCard.vue";
+import Facet from "../components/UI/Facet.vue";
 
 const route = useRoute();
 const store = useEpisodeStore();
+
 const { episodeData, characters, isLoading } = storeToRefs(store);
 
 onMounted(async () => {

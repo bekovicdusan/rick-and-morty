@@ -8,7 +8,12 @@
     <CharacterCard :character="character" size="lg" />
 
     <div class="mt-6">
-      <h2 class="text-2xl font-semibold mb-2">Episodes</h2>
+      <h2 class="flex items-center text-2xl font-semibold mb-2">
+        Episodes
+        <Facet>
+          {{ character.episode.length }}
+        </Facet>
+      </h2>
       <BadgeList :items="character.episode" v-slot="data">
         <router-link :to="{ name: 'SingleEpisode', params: { id: extractId(data.item as string) } }"
           class="text-blue-400 hover:underline">
@@ -29,6 +34,7 @@ import { useCharacterStore } from "../store/character.store";
 import Loader from "../components/UI/Loader.vue";
 import BadgeList from '../components/UI/BadgeList.vue';
 import CharacterCard from "../components/UI/CharacterCard.vue";
+import Facet from "../components/UI/Facet.vue";
 
 const route = useRoute();
 
