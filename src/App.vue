@@ -1,5 +1,11 @@
 <template>
-  <div class="bg-gray-900 text-white">
+  <div v-if="authStore.loading" class="w-[100vw] h-[100vh] relative ">
+    <div style="transform: translate(-50%, -50%); position: absolute; top: 50%; left: 50%;">
+      <Loader />
+    </div>
+  </div>
+
+  <div v-show="!authStore.loading" class="bg-gray-900 text-white">
     <Header />
     <router-view class="mt-16" />
   </div>
@@ -10,6 +16,7 @@ import { watch } from "vue";
 import { useAuthStore } from "./store/auth.store";
 
 import Header from "./components/Header.vue";
+import Loader from "./components/UI/Loader.vue";
 
 const authStore = useAuthStore();
 
