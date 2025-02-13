@@ -24,14 +24,7 @@
 
     <div class="mt-6">
       <h2 class="text-2xl font-semibold mb-2">Episodes</h2>
-      <ul class="flex flex-wrap gap-2">
-        <li v-for="episode in character.episode" :key="episode" class="bg-gray-700 w-[110px] px-4 py-2 rounded-lg">
-          <router-link :to="{ name: 'SingleEpisode', params: { id: extractId(episode) } }"
-            class="text-blue-400 hover:underline">
-            Episode {{ extractEpisodeNumber(episode) }}
-          </router-link>
-        </li>
-      </ul>
+      <BadgeList :episodes="character.episode" />
     </div>
   </div>
 </template>
@@ -41,8 +34,10 @@ import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useCharacterStore } from "../store/character.store";
+import { extractId } from "../helper";
 
 import Loader from "../components/UI/Loader.vue";
+import BadgeList from '../components/UI/BadgeList.vue';
 
 const route = useRoute();
 
@@ -54,11 +49,4 @@ onMounted(async () => {
   store.fetchCharacterById(route.params.id as string);
 });
 
-const extractId = (url: string): string => {
-  return url.split("/").filter(Boolean).pop() || "";
-};
-
-const extractEpisodeNumber = (url: string): string => {
-  return url.split("/").pop() || "";
-};
 </script>
