@@ -9,7 +9,12 @@
 
     <div class="mt-6">
       <h2 class="text-2xl font-semibold mb-2">Episodes</h2>
-      <BadgeList :episodes="character.episode" />
+      <BadgeList :items="character.episode" v-slot="data">
+        <router-link :to="{ name: 'SingleEpisode', params: { id: extractId(data.item as string) } }"
+          class="text-blue-400 hover:underline">
+          Episode {{ extractEpisodeNumber(data.item as string) }}
+        </router-link>
+      </BadgeList>
     </div>
   </div>
 </template>
@@ -18,6 +23,7 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { extractId, extractEpisodeNumber } from "../helper";
 import { useCharacterStore } from "../store/character.store";
 
 import Loader from "../components/UI/Loader.vue";
