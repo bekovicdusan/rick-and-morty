@@ -7,7 +7,7 @@
     <div class="flex flex-col" ref="characterList">
       <SearchBox class="p-2" v-model:search="searchQuery" />
 
-      <CharacterCard v-for="character in filteredCharacters" :key="character.id" :character="character" is-mini />
+      <CharacterCard v-for="character in filteredCharacters" :key="character.id" :character="character" size="sm" />
 
       <p v-if="hasReachedTheEnd" class="flex items-center justify-center w-full mt-2 text-lg font-medium">
         That's all folks!

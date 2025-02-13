@@ -1,5 +1,10 @@
 <template>
-  <div v-if="isMini" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
+  <div v-if="size === 'xs'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[80px]">
+    <img :src="character.image" :alt="character.name" class="rounded-lg" />
+    <h2 class="font-semibold mt-2">{{ character.name }}</h2>
+  </div>
+
+  <div v-else-if="size === 'sm'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
     @click="router.push(`/characters/${character.id}`)">
     <img :src="character.image" :alt="character.name" class="rounded-lg" />
     <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
@@ -34,8 +39,8 @@ defineProps({
     type: Object as PropType<Character>,
     required: true,
   },
-  isMini: {
-    type: Boolean,
+  size: {
+    type: String as PropType<"xs" | "sm" | "lg">,
     required: true
   }
 });

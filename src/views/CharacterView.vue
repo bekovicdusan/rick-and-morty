@@ -5,7 +5,7 @@
 
   <div v-else-if="character" class="p-6">
 
-    <CharacterCard :character="character" :is-mini="false" />
+    <CharacterCard :character="character" size="lg" />
 
     <div class="mt-6">
       <h2 class="text-2xl font-semibold mb-2">Episodes</h2>
