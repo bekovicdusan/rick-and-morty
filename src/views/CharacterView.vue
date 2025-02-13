@@ -28,7 +28,7 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
-import { extractId, extractEpisodeNumber } from "../helper";
+import { extractId, extractEpisodeNumber } from "../utils";
 import { useCharacterStore } from "../store/character.store";
 
 import Loader from "../components/UI/Loader.vue";

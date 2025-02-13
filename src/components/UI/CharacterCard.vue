@@ -1,16 +1,17 @@
 <template>
+  <!-- used in LocationView -->
   <div v-if="size === 'xs'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[122px]">
     <SkeletonImage :src="character.image" :alt="character.name" width="90px" height="90px"
       @click="router.push(`/characters/${character.id}`)" />
     <h4 class="mt-2 text-xs">{{ character.name }}</h4>
   </div>
-
+  <!-- used in CharacterListView -->
   <div v-else-if="size === 'sm'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
     @click="router.push(`/characters/${character.id}`)">
     <SkeletonImage :src="character.image" :alt="character.name" width="290px" height="290px" />
     <h2 class="text-lg font-semibold mt-2">{{ character.name }}</h2>
   </div>
-
+  <!-- used in CharacterView -->
   <div v-else class="flex flex-col sm:flex-row bg-gray-800 p-6 rounded-lg flex items-center">
     <SkeletonImage :src="character.image" :alt="character.name" width="192px" height="192px" />
     <div class="ml-6">
@@ -37,7 +38,7 @@
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Character } from '../../types';
-import { extractId } from '../../helper';
+import { extractId } from '../../utils';
 
 import SkeletonImage from './SkeletonImage.vue';
 
