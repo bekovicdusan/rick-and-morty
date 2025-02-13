@@ -22,7 +22,7 @@
 import { onMounted, onUnmounted, ref, computed } from "vue";
 import { storeToRefs } from 'pinia';
 import { useCharacterStore } from '../store/character.store';
-import type { Character } from "../types/character.type";
+import type { Character } from "../types";
 
 import SearchBox from "../components/SearchBox.vue";
 import Loader from "../components/UI/Loader.vue";

@@ -1,7 +1,8 @@
 <template>
-  <div v-if="size === 'xs'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[80px]">
-    <img :src="character.image" :alt="character.name" class="rounded-lg" />
-    <h2 class="font-semibold mt-2">{{ character.name }}</h2>
+  <div v-if="size === 'xs'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[122px]">
+    <img :src="character.image" :alt="character.name" class="rounded-lg"
+      @click="router.push(`/characters/${character.id}`)" />
+    <h4 class="mt-2 text-xs">{{ character.name }}</h4>
   </div>
 
   <div v-else-if="size === 'sm'" class="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 m-2 max-w-[322px]"
@@ -18,10 +19,14 @@
       <p class="text-lg"><strong>Species:</strong> {{ character.species }}</p>
       <p class="text-lg">
         <strong>Location: </strong>
-        <router-link :to="{ name: 'SingleLocation', params: { id: extractId(character.location.url) } }"
+        <router-link v-if="character.location?.url"
+          :to="{ name: 'SingleLocation', params: { id: extractId(character.location.url) } }"
           class="text-blue-400 hover:underline">
           {{ character.location.name }}
         </router-link>
+        <span v-else>
+          {{ character.location.name }}
+        </span>
       </p>
       <p class="text-lg"><strong>Origin:</strong> {{ character.origin.name }}</p>
     </div>
@@ -31,7 +36,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import { useRouter } from 'vue-router';
-import type { Character } from '../../types/character.type';
+import type { Character } from '../../types';
 import { extractId } from '../../helper';
 
 defineProps({
