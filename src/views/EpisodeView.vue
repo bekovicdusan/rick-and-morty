@@ -4,6 +4,8 @@
   </div>
 
   <div v-else-if="episodeData" class="p-6">
+    <h1 class="text-[28px] font-semibold mb-3">Episode Details</h1>
+
     <div class="bg-gray-800 p-6 rounded-lg">
       <h1 class="text-3xl font-bold mb-2">{{ episodeData.name }}</h1>
       <p class="text-lg"><strong>Air Date:</strong> {{ episodeData.air_date }}</p>
@@ -11,7 +13,7 @@
     </div>
 
     <div class="mt-6">
-      <h2 class="flex items-center text-2xl font-semibold mb-2">
+      <h2 class="flex items-center text-2xl font-semibold">
         Characters
         <Facet>
           {{ characters.length }}

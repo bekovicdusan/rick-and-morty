@@ -5,6 +5,8 @@
 
   <div v-else-if="character" class="p-6">
 
+    <h1 class="text-[28px] font-semibold mb-3">Character Details</h1>
+
     <CharacterCard :character="character" size="lg" />
 
     <div class="mt-6">

@@ -4,6 +4,8 @@
   </div>
 
   <div v-else-if="locationData" class="p-6">
+    <h1 class="text-[28px] font-semibold mb-3">Location Details</h1>
+
     <div class="bg-gray-800 p-6 rounded-lg">
       <h1 class="text-3xl font-bold mb-2">{{ locationData.name }}</h1>
       <p class="text-lg"><strong>Type:</strong> {{ locationData.type }}</p>
